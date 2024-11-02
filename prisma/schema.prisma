@@ -1,0 +1,56 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String  @id @default(uuid()) @map("_id")
+  firstName    String?
+  lastName     String?
+  imageUrl     String?
+  emailAddress String?
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
+  clerkUserId     String?      @unique
+  
+  trips        Trip[]  @relation("UserTrips")
+  tripReviews TripReview[] @relation("UserTripReviews")
+}
+
+
+model Trip {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  name String
+  descripton String
+  smallDescription String
+  fromCountry String
+  toCountry String
+
+  tripNumber String
+  tripRate Float
+
+
+  userId String 
+  user User @relation("UserTrips", fields: [userId], references: [id])
+
+  tripReviews TripReview[] @relation("TripReviews")
+}
+
+model TripReview {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  content String[]
+  userRating Float
+  totalRate Float
+  additionalNotes String?
+
+  tripId String @db.ObjectId
+  userId String 
+
+  trip Trip @relation("TripReviews", fields: [tripId], references: [id])
+  user User @relation("UserTripReviews", fields: [userId], references: [id])
+
+}

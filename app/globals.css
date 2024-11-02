@@ -72,3 +72,13 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+.main-container {
+  @apply max-w-7xl mx-auto px-4 md:px-8
+}
+
+
+/* Clerk */
+.cl-internal-1dauvpw, .cl-internal-1hp5nqm {
+  display: none !important;
+}
