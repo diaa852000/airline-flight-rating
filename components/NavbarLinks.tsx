@@ -17,7 +17,7 @@ export default function NavbarLinks() {
                     key={item.id}
                     className={cn(
                         location === item.href ? 'border-b-2 border-primary/85 text-primary/85' : 'hover:text-primary/80',
-                        "group flex items-center p-2 font-semibold transition-colors"
+                        "group flex items-center py-1 px-2 mx-1 font-semibold transition-colors capitalize"
                     )}>
                     {item.name}
                 </Link>

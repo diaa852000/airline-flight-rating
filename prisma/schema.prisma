@@ -8,49 +8,61 @@ datasource db {
 }
 
 model User {
-  id           String  @id @default(uuid()) @map("_id")
+  id           String   @id @default(uuid()) @map("_id")
+  clerkUserId  String?  @unique
   firstName    String?
   lastName     String?
   imageUrl     String?
   emailAddress String?
-  createdAt       DateTime     @default(now())
-  updatedAt       DateTime     @updatedAt
-  clerkUserId     String?      @unique
-  
-  trips        Trip[]  @relation("UserTrips")
-  tripReviews TripReview[] @relation("UserTripReviews")
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  reviews FlightReview[] @relation("UserReviews")
+
+  @@map("user")
 }
 
-
-model Trip {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
-  name String
-  descripton String
+model Flight {
+  id               String   @id @default(auto()) @map("_id") @db.ObjectId
+  name             String
+  descripton       String
   smallDescription String
-  fromCountry String
-  toCountry String
+  fromCountry      String
+  toCountry        String
+  startTime        DateTime
+  endTime          DateTime
+  flightNumber     String
+  flightRate       Float?
 
-  tripNumber String
-  tripRate Float
+  reviews FlightReview[] @relation("FlightReviews")
 
-
-  userId String 
-  user User @relation("UserTrips", fields: [userId], references: [id])
-
-  tripReviews TripReview[] @relation("TripReviews")
+  @@map("flight")
 }
 
-model TripReview {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
-  content String[]
-  userRating Float
-  totalRate Float
-  additionalNotes String?
+model FlightReview {
+  id                         String   @id @default(auto()) @map("_id") @db.ObjectId
+  flightId                   String   @db.ObjectId // Reference to Flight by ID
+  userId                     String // Reference to User by ID
+  counterServiceRating       Int      @default(0) // Rating for counter service
+  waitingTimeRating          Int      @default(0) // Rating for waiting time
+  boardingOrganizationRating Int      @default(0) // Rating for boarding organization
+  onTimeDepartureRating      Int      @default(0) // Rating for on-time departure
+  cleanlinessRating          Int      @default(0) // Rating for cleanliness
+  crewServiceRating          Int      @default(0) // Rating for crew service
+  foodQualityRating          Int      @default(0) // Rating for food quality
+  entertainmentRating        Int      @default(0) // Rating for entertainment
+  captainPerformanceRating   Int      @default(0) // Rating for captain performance
+  takeoffLandingRating       Int      @default(0) // Rating for takeoff and landing
+  comfortRating              Int      @default(0) // Rating for overall comfort
+  onTimeArrivalRating        Int      @default(0) // Rating for on-time arrival
+  comments                   String? // Additional comments
+  totalRating                Float? // Calculated average rating
+  reviewDate                 DateTime @default(now()) // Review timestamp
 
-  tripId String @db.ObjectId
-  userId String 
+  flight Flight? @relation("FlightReviews", fields: [flightId], references: [id]) // Optional relation to Flight
+  user   User?   @relation("UserReviews", fields: [userId], references: [id]) // Optional relation to User
 
-  trip Trip @relation("TripReviews", fields: [tripId], references: [id])
-  user User @relation("UserTripReviews", fields: [userId], references: [id])
-
+  @@map("flightReview")
 }
+
+

@@ -1,3 +1,5 @@
+import { State } from "@/types";
+
 export const navlinks = [
     {
         id: 0,
@@ -57,3 +59,8 @@ export const footerLinks = [
         ]
     },
 ];
+
+export const initalState: State = {
+    message: '',
+    status: "undefined"
+}

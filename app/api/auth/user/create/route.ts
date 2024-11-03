@@ -26,7 +26,7 @@ export async function GET() {
                     lastName: user.lastName ?? "",
                     imageUrl: user.imageUrl ?? "",
                     emailAddress: user.emailAddresses[0].emailAddress ?? "",
-                    clerkUserId: user.id ?? ""
+                    clerkUserId: user.id ?? "",
                 }
             });
 
@@ -34,6 +34,7 @@ export async function GET() {
         } else {
             return NextResponse.redirect('http://localhost:3333/home');
         }
+
     } catch (error: any) {
         console.error("Database error:", error?.message);
         return NextResponse.json({ error: "Database operation failed" }, { status: 500 });

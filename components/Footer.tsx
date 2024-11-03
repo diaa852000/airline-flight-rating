@@ -3,6 +3,7 @@ import { FaFacebook, FaInstagram, FaXTwitter, FaYoutube } from "react-icons/fa6"
 import { footerLinks } from "@/constants";
 import React from "react";
 import Link from "next/link";
+import Logo from "./Logo";
 
 
 export default function Footer() {
@@ -11,9 +12,7 @@ export default function Footer() {
             {/* TOP */}
             <div className="flex flex-col md:flex-row  justify-between gap-24 text-muted-foreground">
                 <div className="w-full md:w-1/2 lg:w-1/4 flex flex-col gap-4">
-                    <Link href='/'>
-                        <h1 className="text-2xl font-semibold">MART-<span className="text-primary">UI</span></h1>
-                    </Link>
+                    <Logo/>
                     <p className="text-pretty text-base">
                         Lorem ipsum dolor sit amet consectetur adipisicing elit.
                         Quisquam praesentium repudiandae labore dolorum nobis impedit officiis doloribus accusantium expedita sint
