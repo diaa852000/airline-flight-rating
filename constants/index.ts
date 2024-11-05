@@ -8,20 +8,35 @@ export const navlinks = [
     },
     {
         id: 1,
-        name: 'Trips',
-        href: '/trips'
+        name: 'Flights',
+        href: '/flights'
     },
     {
         id: 2,
         name: 'booking',
         href: '/products/uikit'
     },
+];
+
+export const adminNavlinks = [
     {
-        id: 3,
-        name: 'Icons',
-        href: '/products/icon'
+        id: 0,
+        name: 'Home',
+        href: '/home'
+    },
+    {
+        id: 1,
+        name: 'Flights',
+        href: '/flights'
+    },
+    {
+        id: 2,
+        name: 'Create Flight',
+        href: '/flights/create'
     },
 ];
+
+
 
 
 export const footerLinks = [
@@ -64,3 +79,5 @@ export const initalState: State = {
     message: '',
     status: "undefined"
 }
+
+export const ADMIN_EMAIL = "diaaeltaiby@gmail.com"

@@ -1,11 +1,11 @@
-import CreateTripForm from "@/components/forms/CreateTrip";
+import CreateFlightForm from "@/components/forms/CreateFlightForm";
 import { Card } from "@/components/ui/card";
 
-export default function TripsPage() {
+export default function CreateFlight() {
     return (
         <section className="main-container">
             <Card>
-                <CreateTripForm/>
+                <CreateFlightForm/>
             </Card>
         </section>
     )

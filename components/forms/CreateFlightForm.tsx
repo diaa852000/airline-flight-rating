@@ -20,11 +20,9 @@ import moment from 'moment';
 
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
-export default function CreateTripForm() {
+export default function CreateFlightForm() {
     const [state, formAction] = useFormState(CreateFlightAction, initalState);
     const [description, setDescription] = useState("");
-    const [startTime, setStartTime] = useState<string | undefined>(undefined);
-    const [endTime, setEndTime] = useState<string | undefined>(undefined);
 
     useEffect(() => {
         if (state.status === "success") {
@@ -35,19 +33,16 @@ export default function CreateTripForm() {
         }
     }, [state.status, state.message, state.errors])
 
-    const onStartTimeChange = (value: string | moment.Moment) => {
-        const dateString = moment.isMoment(value) ? value.format('YYYY-MM-DD HH:mm') : value;
-        setStartTime(dateString);
-    }
-    
-    const onEndTimeChange = (value: string | moment.Moment) => {
-        const dateString = moment.isMoment(value) ? value.format('YYYY-MM-DD HH:mm') : value;
-        setEndTime(dateString);
+    const [startTime, setStartTime] = useState<moment.Moment | null>(null);
+    const [endTime, setEndTime] = useState<moment.Moment | null>(null);
+
+    const onStartTimeChange = (value: moment.Moment | string) => {
+        setStartTime(moment.isMoment(value) ? value : moment(value));
     }
 
-    useEffect(() => {
-        console.log(description)
-    },[description])
+    const onEndTimeChange = (value: moment.Moment | string) => {
+        setEndTime(moment.isMoment(value) ? value : moment(value));
+    }
 
     return (
         <form action={formAction}>
@@ -61,7 +56,7 @@ export default function CreateTripForm() {
             </CardHeader>
             <CardContent className="flex flex-col gap-y-5 flex-grow">
                 <div className="flex flex-col gap-y-2">
-                    <Label>name</Label>
+                    <Label>Name</Label>
                     <Input
                         name="name"
                         type="text"
@@ -78,6 +73,16 @@ export default function CreateTripForm() {
                     />
                     {state?.errors?.["flightNumber"]?.[0] && (
                         <p className="text-destructive">{state?.errors?.["flightNumber"]?.[0]}</p>
+                    )}
+                </div>
+                <div className="flex flex-col gap-y-2">
+                    <Label>Price</Label>
+                    <Input
+                        name="price"
+                        type="number"
+                    />
+                    {state?.errors?.["price"]?.[0] && (
+                        <p className="text-destructive">{state?.errors?.["price"]?.[0]}</p>
                     )}
                 </div>
                 <div className="flex gap-4 flex-wrap">
@@ -119,11 +124,11 @@ export default function CreateTripForm() {
                         <input
                             type="hidden"
                             name="startTime"
-                            value={startTime}
+                            value={endTime ? endTime.format('YYYY-MM-DD HH:mm') : ''} 
                         />
                         <Label>Start Time</Label>
                         <Datetime
-                            value={startTime}
+                            value={startTime ?? undefined}
                             onChange={onStartTimeChange}
                             inputProps={{
                                 placeholder: "Choose Flight Start Date & Time",
@@ -137,11 +142,11 @@ export default function CreateTripForm() {
                         <input
                             type="hidden"
                             name="endTime"
-                            value={endTime}
+                            value={endTime ? endTime.format('YYYY-MM-DD HH:mm') : ''} 
                         />
                         <Label>End Time</Label>
                         <Datetime
-                            value={endTime}
+                            value={endTime ?? undefined}
                             onChange={onEndTimeChange}
                             inputProps={{
                                 placeholder: "Choose Flight End Date & Time",

@@ -9,4 +9,5 @@ export const FlightSchema = z.object({
     startTime: z.string().min(1,{message: "Start Time is required"}),
     endTime: z.string().min(1, {message: "End Time is Required"}),
     flightNumber: z.string().min(1, {message: "Flight Number is required"}),
+    price: z.number().min(1, {message: "Price is required"})
 });

@@ -3,33 +3,10 @@
 
 import { isAuthenticated } from "@/helpers";
 import prisma from "@/lib/db";
-import { FindTrips } from "@/lib/helpers";
 import { FlightSchema } from "@/lib/validations";
 import { State } from "@/types";
 import moment from "moment";
 import { redirect } from "next/navigation";
-
-export async function TripSearchAction(searchParams: any) {
-    let state: State;
-
-    const trips = await FindTrips(searchParams);
-
-    if(!trips) {
-        state = {
-            status: "error",
-            message: "Oops, Check your trip number or try again!"
-        };
-        return state;
-    }
-
-    state = {
-        status: "success",
-        message: "Here're matched trips"
-    }
-
-    return state;
-}   
-
 
 export async function CreateFlightAction(prevState: any ,formData: FormData) {
     if(!await isAuthenticated()) {
@@ -47,6 +24,7 @@ export async function CreateFlightAction(prevState: any ,formData: FormData) {
         endTime: formData.get("endTime"),
         smallDescription: formData.get("smallDescription"),
         description: formData.get("description"),
+        price: Number(formData.get("price")),
     })
 
     if(!validateFields.success) {
@@ -59,7 +37,6 @@ export async function CreateFlightAction(prevState: any ,formData: FormData) {
         return state;
     }
 
-
     await prisma.flight.create({
         data: {
             name: validateFields.data.name,
@@ -69,7 +46,8 @@ export async function CreateFlightAction(prevState: any ,formData: FormData) {
             startTime: moment(validateFields.data.startTime).toISOString(),
             endTime: moment(validateFields.data.endTime).toISOString(),
             smallDescription: validateFields.data.smallDescription,
-            descripton: validateFields.data.description
+            description: validateFields.data.description,
+            price: validateFields.data.price,
         },
     });
 
@@ -79,3 +57,14 @@ export async function CreateFlightAction(prevState: any ,formData: FormData) {
     }
     return state;
 }
+
+export async function GetFlightById(id: string) {
+    const data = await prisma.flight.findUnique({
+        where: { 
+            id: id
+        },
+    });
+
+    return data;
+}
+

@@ -25,14 +25,15 @@ model User {
 model Flight {
   id               String   @id @default(auto()) @map("_id") @db.ObjectId
   name             String
-  descripton       String
+  description       String
   smallDescription String
   fromCountry      String
   toCountry        String
   startTime        DateTime
   endTime          DateTime
-  flightNumber     String
+  flightNumber     String @unique
   flightRate       Float?
+  price            Float
 
   reviews FlightReview[] @relation("FlightReviews")
 
