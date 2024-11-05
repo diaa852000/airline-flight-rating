@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // interfaces
 export interface IUserCredentails {
     username?: string;
@@ -16,6 +17,26 @@ export interface IFlightCardProps {
     fromCountry: string;
     flightRate: number;
     price: number;
+}
+
+export interface IReviewFormProps {
+    userId: string;
+    flightId: string;
+}
+
+export interface IReviewModelProps {
+    userId: string;
+    userName: string;
+    flightId: string;
+    flightNumber: string;
+}
+
+export interface IRateinputProps {
+    name: string;
+    value: string;
+    id: string;
+    selectedValue: any;
+    onChange: (val: string) => void;
 }
 
 // Types

@@ -31,7 +31,7 @@ export default function CreateFlightForm() {
         } else if (state.status === "error") {
             toast.error(state.message);
         }
-    }, [state.status, state.message, state.errors])
+    }, [state.status, state.message, state.errors]);
 
     const [startTime, setStartTime] = useState<moment.Moment | null>(null);
     const [endTime, setEndTime] = useState<moment.Moment | null>(null);

@@ -36,9 +36,6 @@ export const adminNavlinks = [
     },
 ];
 
-
-
-
 export const footerLinks = [
     {
         title: "company",
@@ -80,4 +77,11 @@ export const initalState: State = {
     status: "undefined"
 }
 
+export const rateInputArray = ['0', '1', '2', '3', '4', '5']
+
 export const ADMIN_EMAIL = "diaaeltaiby@gmail.com"
+
+export const FormSteps = [
+    "",
+    "Additional Comments"
+];

@@ -5,12 +5,11 @@ import { isAuthenticated } from "@/helpers";
 import prisma from "@/lib/db";
 import { FlightSchema } from "@/lib/validations";
 import { State } from "@/types";
-import moment from "moment";
 import { redirect } from "next/navigation";
 
 export async function CreateFlightAction(prevState: any ,formData: FormData) {
     if(!await isAuthenticated()) {
-        redirect('/login');
+        redirect('/sign-in');
     }
     
     let state: State;
@@ -37,14 +36,17 @@ export async function CreateFlightAction(prevState: any ,formData: FormData) {
         return state;
     }
 
+    const startTime = new Date(validateFields.data.startTime);
+    const endTime = new Date(validateFields.data.endTime);
+
     await prisma.flight.create({
         data: {
             name: validateFields.data.name,
             flightNumber: validateFields.data.flightNumber,
             fromCountry: validateFields.data.fromCountry,
             toCountry: validateFields.data.toCountry,
-            startTime: moment(validateFields.data.startTime).toISOString(),
-            endTime: moment(validateFields.data.endTime).toISOString(),
+            startTime,
+            endTime,
             smallDescription: validateFields.data.smallDescription,
             description: validateFields.data.description,
             price: validateFields.data.price,
@@ -57,14 +59,3 @@ export async function CreateFlightAction(prevState: any ,formData: FormData) {
     }
     return state;
 }
-
-export async function GetFlightById(id: string) {
-    const data = await prisma.flight.findUnique({
-        where: { 
-            id: id
-        },
-    });
-
-    return data;
-}
-

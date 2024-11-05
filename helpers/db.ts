@@ -18,3 +18,17 @@ export async function fetchAllFlights() {
 
     return data;
 }
+
+export async function GetFlightById(id: string) {
+    const data = await prisma.flight.findUnique({
+        where: { 
+            id: id
+        },
+    });
+
+    return data;
+};
+
+
+
+

@@ -3,7 +3,6 @@
 import { useFormState } from "react-dom";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
-import { TripSearchAction } from "@/actions/flights.actions";
 import { initalState } from "@/constants";
 import { useEffect } from "react";
 import { toast } from "sonner";
@@ -11,16 +10,16 @@ import { useSearchParams } from "next/navigation";
 
 export default function SearchTripForm() {
     const searchParams = useSearchParams()
-    const [state, formAction] = useFormState(() => TripSearchAction(searchParams.get("trip")), initalState);
+    // const [state, formAction] = useFormState(() => TripSearchAction(searchParams.get("trip")), initalState);
 
 
-    useEffect(() => {
-        if (state.status === "success") {
-            toast.success(state.message);
-        } else if (state.status === "error") {
-            toast.error(state.message);
-        }
-    }, [state.status, state.message, state.errors])
+    // useEffect(() => {
+    //     if (state.status === "success") {
+    //         toast.success(state.message);
+    //     } else if (state.status === "error") {
+    //         toast.error(state.message);
+    //     }
+    // }, [state.status, state.message, state.errors])
 
 
     useEffect(() => {
@@ -29,7 +28,7 @@ export default function SearchTripForm() {
 
     return (
         <form
-            action={formAction}
+            // action={formAction}
             className="mt-8 max-w-xl mx-auto"
         >
             <div className="flex">

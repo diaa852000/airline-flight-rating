@@ -116,3 +116,7 @@ body {
 .flight-rows > div:nth-child(odd) {
   @apply dark:bg-muted/50 bg-muted/70
 }
+
+.review-rows > div:nth-child(odd) {
+  @apply dark:bg-gray-600/50
+}

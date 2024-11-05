@@ -1,16 +1,35 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { DateFormatter, priceFormatter } from "@/helpers";
+import { DateFormatter, getReviewModelData, priceFormatter } from "@/helpers";
 import DOMPurify from "isomorphic-dompurify";
 import moment from "moment";
+import ReviewModel from "./ReviewModel";
+import { redirect } from "next/navigation";
 
-export default function FlightRows({data}: {data: any}) {
-
+export default async function FlightRows({ data }: { data: any }) {
     const cleanDescription = data?.description.replace(/^"|"$/g, '') as string;
+
+    const { user, flightData} = await getReviewModelData(data.id);
+
+    if(!user) {
+        redirect('/sign-in')
+    }
 
     return (
         <div className="my-6">
-            <h1 className="text-2xl font-extrabold">{data.name}</h1>
-            <h1 className="text-base font-medium text-muted-foreground mt-1">{data.smallDescription}</h1>
+            <div className="flex justify-between">
+                <div className="max-w-3xl w-full">
+                    <h1 className="text-2xl font-extrabold">{data.name}</h1>
+                    <h1 className="text-base font-medium text-muted-foreground mt-1">{data.smallDescription}</h1>
+                </div>
+                <div>
+                    <ReviewModel 
+                        flightId={flightData.id}
+                        flightNumber={flightData.flightNumber}
+                        userId={user.id}
+                        userName={user.firstName as string}
+                    />
+                </div>
+            </div>
 
             <div className="border-t my-4" />
             <div className="grid grid-cols-1 gap-6">

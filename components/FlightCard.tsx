@@ -17,6 +17,7 @@ export default function FlightCard({ data }: { data: IFlightCardProps }) {
                     <div className="flex items-center gap-2 text-sm">
                         <p className="font-semibold dark:text-gray-300">Departure:</p>
                         <p className="text-muted-foreground font-medium">{DateFormatter(data.startTime.slice(0, 10))}</p>
+                        {/* <p className="text-muted-foreground font-medium">{data.startTime.slice(11)}</p> */}
                     </div>
                 </div>
 
@@ -29,6 +30,7 @@ export default function FlightCard({ data }: { data: IFlightCardProps }) {
                     <div className="flex items-center gap-2 text-sm">
                         <p className="font-semibold dark:text-gray-300">Return:</p>
                         <p className="text-muted-foreground font-medium">{DateFormatter(data.endTime.slice(0, 10))}</p>
+                        {/* <p className="text-muted-foreground font-medium">{data.endTime.slice(11)}</p> */}
                     </div>
                 </div>
             </div>
