@@ -1,11 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { DateFormatter, priceFormatter } from "@/helpers";
-import { IFlightCardProps } from "@/types";
 import { ArrowRightLeft } from "lucide-react";
 import Link from "next/link";
 
-
-export default function FlightCard({ data }: { data: IFlightCardProps }) {
-
+export default function ReviewCard({ data }: { data: any }) {
     return (
         <Link
             href={`/flights/${data.id}`}
@@ -16,7 +14,7 @@ export default function FlightCard({ data }: { data: IFlightCardProps }) {
                     <p className="text-xl md:text-lg font-semibold capitalize">{data.fromCountry}</p>
                     <div className="flex items-center gap-2 text-sm">
                         <p className="font-semibold dark:text-gray-300">Departure:</p>
-                        <p className="text-muted-foreground font-medium">{DateFormatter(data.startTime.slice(0, 10))}</p>
+                        <p className="text-muted-foreground font-medium"> {DateFormatter(new Date(data?.startTime).toLocaleDateString())}</p>
                     </div>
                 </div>
 
@@ -28,16 +26,16 @@ export default function FlightCard({ data }: { data: IFlightCardProps }) {
                     <p className="text-xl md:text-lg font-semibold capitalize">{data.toCountry}</p>
                     <div className="flex items-center gap-2 text-sm">
                         <p className="font-semibold dark:text-gray-300">Return:</p>
-                        <p className="text-muted-foreground font-medium">{DateFormatter(data.endTime.slice(0, 10))}</p>
+                        <p className="text-muted-foreground font-medium"> {DateFormatter(new Date(data?.endTime).toLocaleDateString())}</p>
                     </div>
                 </div>
             </div>
             <div className="text-center">
-                <p className="font-extrabold text-lg tracking-wide">{priceFormatter(data.price).slice(0, -3)}</p>
+                <p className="font-extrabold text-lg tracking-wide">{priceFormatter(data?.price).slice(0, -3)}</p>
                 <p className="text-sm text-muted-foreground/90 mt-1 font-medium">per 1 person</p>
-                {data.averageRating 
-                    ? <p className="text-sm text-muted-foreground/90 mt-1 font-medium">{data.averageRating.toFixed(2)}/5</p>
-                    : <p className="text-sm text-muted-foreground/90 mt-1 font-medium">NA / 5</p>
+                {data.averageRating
+                    ? <p className="text-sm text-muted-foreground/90 mt-1 font-bold">{data.averageRating.toFixed(2)}/5</p>
+                    : <p className="text-sm text-muted-foreground/90 mt-1 font-bold">NA/5</p>
                 }
             </div>
         </Link>

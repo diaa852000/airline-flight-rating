@@ -1,5 +1,17 @@
 import { State } from "@/types";
 
+export const unAuthNavlinks = [
+    {
+        id: 0,
+        name: 'Home',
+        href: '/home'
+    },
+    {
+        id: 1,
+        name: 'Flights',
+        href: '/flights'
+    }
+];
 export const navlinks = [
     {
         id: 0,
@@ -13,8 +25,8 @@ export const navlinks = [
     },
     {
         id: 2,
-        name: 'booking',
-        href: '/products/uikit'
+        name: 'Reviews',
+        href: '/reviews'
     },
 ];
 
@@ -33,6 +45,11 @@ export const adminNavlinks = [
         id: 2,
         name: 'Create Flight',
         href: '/flights/create'
+    },
+    {
+        id: 2,
+        name: 'Reviews',
+        href: '/reviews'
     },
 ];
 
@@ -81,7 +98,7 @@ export const rateInputArray = ['0', '1', '2', '3', '4', '5']
 
 export const ADMIN_EMAIL = "diaaeltaiby@gmail.com"
 
-export const FormSteps = [
-    "",
-    "Additional Comments"
-];
+export const FormSteps = [1, 2];
+
+export const FLIGHT_PER_PAGE = 5;
+

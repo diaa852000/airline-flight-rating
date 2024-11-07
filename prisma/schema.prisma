@@ -34,6 +34,7 @@ model Flight {
   flightNumber     String @unique
   flightRate       Float?
   price            Float
+  averageRating    Float?
 
   reviews FlightReview[] @relation("FlightReviews")
 
@@ -44,18 +45,18 @@ model FlightReview {
   id                         String   @id @default(auto()) @map("_id") @db.ObjectId
   flightId                   String   @db.ObjectId // Reference to Flight by ID
   userId                     String // Reference to User by ID
-  counterServiceRating       Int      @default(0) // Rating for counter service
-  waitingTimeRating          Int      @default(0) // Rating for waiting time
-  boardingOrganizationRating Int      @default(0) // Rating for boarding organization
-  onTimeDepartureRating      Int      @default(0) // Rating for on-time departure
-  cleanlinessRating          Int      @default(0) // Rating for cleanliness
-  crewServiceRating          Int      @default(0) // Rating for crew service
-  foodQualityRating          Int      @default(0) // Rating for food quality
-  entertainmentRating        Int      @default(0) // Rating for entertainment
-  captainPerformanceRating   Int      @default(0) // Rating for captain performance
-  takeoffLandingRating       Int      @default(0) // Rating for takeoff and landing
-  comfortRating              Int      @default(0) // Rating for overall comfort
-  onTimeArrivalRating        Int      @default(0) // Rating for on-time arrival
+  counterServiceRating       Int      // Rating for counter service
+  waitingTimeRating          Int      // Rating for waiting time
+  boardingOrganizationRating Int      // Rating for boarding organization
+  onTimeDepartureRating      Int      // Rating for on-time departure
+  cleanlinessRating          Int      // Rating for cleanliness
+  crewServiceRating          Int      // Rating for crew service
+  foodQualityRating          Int      // Rating for food quality
+  entertainmentRating        Int      // Rating for entertainment
+  captainPerformanceRating   Int      // Rating for captain performance
+  takeoffLandingRating       Int      // Rating for takeoff and landing
+  comfortRating              Int      // Rating for overall comfort
+  onTimeArrivalRating        Int      // Rating for on-time arrival
   comments                   String? // Additional comments
   totalRating                Float? // Calculated average rating
   reviewDate                 DateTime @default(now()) // Review timestamp
@@ -64,6 +65,7 @@ model FlightReview {
   user   User?   @relation("UserReviews", fields: [userId], references: [id]) // Optional relation to User
 
   @@map("flightReview")
+  @@unique([userId, flightId])
 }
 
 

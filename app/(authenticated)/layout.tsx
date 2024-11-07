@@ -7,16 +7,12 @@ export default function AuthenticatedLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <div className="flex flex-col min-h-screen">
-            <div>
-                <Navbar />
-            </div>
+        <div className="h-full flex flex-col">
+            <Navbar />
             <div className="flex-grow">
                 {children}
             </div>
-            <div>
-                <Footer />
-            </div>
+            <Footer/>
         </div>
     );
 }

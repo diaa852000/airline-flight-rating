@@ -13,6 +13,7 @@ export async function fetchAllFlights() {
             fromCountry: true,
             flightRate: true,
             price: true,
+            averageRating: true,
         },
     });
 
@@ -21,7 +22,7 @@ export async function fetchAllFlights() {
 
 export async function GetFlightById(id: string) {
     const data = await prisma.flight.findUnique({
-        where: { 
+        where: {
             id: id
         },
     });
@@ -29,6 +30,68 @@ export async function GetFlightById(id: string) {
     return data;
 };
 
+export async function exisitingReview(userId: string, flightId: string) {
+    return await prisma.flightReview.findUnique({
+        where: {
+            userId_flightId: {
+                userId: userId,
+                flightId: flightId,
+            },
+        },
+    });
+}
+
+export async function getUserReviews(userId: string) {
+    const data = await prisma.flightReview.findMany({
+        where: {
+            userId,
+        }
+    });
+
+    return data;
+}
+
+export async function getUserReviewsFlight(userId: string) {
+    const userReviewedFlights = await prisma.flight.findMany({
+        where: {
+            reviews: {
+                some: {
+                    userId: userId,
+                },
+            },
+        },
+        include: {
+            reviews: {
+                where: {
+                    userId: userId,
+                }
+            }
+        }
+    });
+
+    return userReviewedFlights;
+}
 
 
+export async function getNewestReviewsForUser(userId: string) {
+    try {
+        const latestReviews = await prisma.flightReview.findMany({
+            where: {
+                userId: userId,
+            },
+            orderBy: {
+                reviewDate: 'desc',
+            },
+            take: 4,
+            include: {
+                flight: true, 
+                user: true,   
+            },
+        });
 
+        return latestReviews;
+    } catch (error) {
+        console.error("Error retrieving latest reviews for user:", error);
+        throw error;
+    }
+}

@@ -8,7 +8,7 @@ import Logo from "./Logo";
 
 export default function Footer() {
     return (
-        <footer className="pt-12 pb-4 padding-x text-sm main-container border-t">
+        <footer className="pt-12 pb-4 text-sm main-container border-t">
             {/* TOP */}
             <div className="flex flex-col md:flex-row  justify-between gap-24 text-muted-foreground">
                 <div className="w-full md:w-1/2 lg:w-1/4 flex flex-col gap-4">

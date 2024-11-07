@@ -42,6 +42,27 @@ export async function CreateReviewAction(prevState: any, formData: FormData) {
         return state;
     }
 
+
+
+    // TODO: make a helper func to this to make the code cleaner
+    const existingReview = await prisma.flightReview.findFirst({
+        where: {
+            AND: [
+                { userId: "user_2oRetPkB8O7YTua0l8BOWmwR8pn" },
+                { flightId: "672a7a583347783e05104767" },
+            ],
+        },
+    });
+
+    if (existingReview) {
+        state = {
+            status: "error",
+            message: "You have already submitted a review for this flight.",
+        };
+        return state
+    }
+
+    // Step 1: Add a new review and calculate its individual average rating
     await prisma.flightReview.create({
         data: {
             userId: validateFields.data.userId,
@@ -59,7 +80,35 @@ export async function CreateReviewAction(prevState: any, formData: FormData) {
             comfortRating: validateFields.data.comfortRating,
             onTimeArrivalRating: validateFields.data.onTimeArrivalRating,
             comments: validateFields.data.comments,
+            totalRating: (
+                (
+                    validateFields.data.counterServiceRating +
+                    validateFields.data.waitingTimeRating +
+                    validateFields.data.boardingOrganizationRating +
+                    validateFields.data.onTimeDepartureRating +
+                    validateFields.data.cleanlinessRating +
+                    validateFields.data.crewServiceRating +
+                    validateFields.data.foodQualityRating +
+                    validateFields.data.entertainmentRating +
+                    validateFields.data.captainPerformanceRating +
+                    validateFields.data.takeoffLandingRating +
+                    validateFields.data.comfortRating +
+                    validateFields.data.onTimeArrivalRating
+                ) / 65 
+            ) * 5,
         },
+    });
+
+    const allReviews = await prisma.flightReview.findMany({
+        where: { flightId: validateFields.data.flightId },
+        select: { totalRating: true },
+    });
+
+    const overallRating = allReviews.reduce((sum, review) => sum + (review.totalRating as number), 0) / allReviews.length;
+
+    await prisma.flight.update({
+        where: { id: validateFields.data.flightId },
+        data: { averageRating: overallRating },
     });
 
     state = {

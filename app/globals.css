@@ -79,6 +79,10 @@ body {
   @apply max-w-7xl mx-auto px-4 md:px-8 py-4
 }
 
+.padding-x {
+  @apply px-8 md:px-10 lg:px-12 xl:px-16 2xl:px-20
+}
+
 
 /* Clerk */
 .cl-internal-1dauvpw, .cl-internal-1hp5nqm {
@@ -119,4 +123,9 @@ body {
 
 .review-rows > div:nth-child(odd) {
   @apply dark:bg-gray-600/50
+}
+
+.bg-image-sky {
+  background-image: url('/sky.jpg');
+  background-size: cover;
 }

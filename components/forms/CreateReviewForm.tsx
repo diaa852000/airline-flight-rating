@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 // import { Input } from "../ui/input";
@@ -5,64 +6,101 @@ import { Label } from "../ui/label";
 import { RadioGroup } from "../ui/radio-group";
 import RateInput from "../RateInput";
 import { IReviewFormProps } from "@/types";
-import { FormSteps, initalState, rateInputArray } from "@/constants";
-import { useEffect, useState } from "react";
+import { FormSteps, rateInputArray } from "@/constants";
+import { FormEvent, useState } from "react";
 import { Textarea } from "../ui/textarea";
 import { Button } from "../ui/button";
-import { useFormState } from "react-dom";
+
 import { toast } from "sonner";
-import { redirect } from "next/navigation";
-import { CreateReviewAction } from "@/actions/reviews.actions";
-
-
+import { useRouter } from "next/navigation";
 
 export default function CreateReviewForm({ userId, flightId }: IReviewFormProps) {
-    const [state, formAction] = useFormState(CreateReviewAction, initalState);
+    const router = useRouter();
+    
+    if(!userId) {
+        router.push('/sing-in');
+    }
 
     const [step, setStep] = useState(0);
     const [selectedRating, setSelectedRating] = useState({});
-
-    const handleRatingChange = (name: string, value: string) => {
-        setSelectedRating(prevRatings => ({
-            ...prevRatings,
-            [name]: value,
-        }));
-    };
+    const [ratings, setRatings] = useState({
+        counterServiceRating: "",
+        waitingTimeRating: "",
+        boardingOrganizationRating: "",
+        onTimeDepartureRating: "",
+        cleanlinessRating: "",
+        crewServiceRating: "",
+        foodQualityRating: "",
+        entertainmentRating: "",
+        captainPerformanceRating: "",
+        takeoffLandingRating: "",
+        comfortRating: "",
+        onTimeArrivalRating: "",
+    });
+    const [comments, setComments] = useState("");
 
     const isLastStep = step === FormSteps.length - 1;
     const isFirstStep = step === 0;
 
     const handleNext = () => setStep((prev) => Math.min(prev + 1, FormSteps.length - 1));
+
     const handlePrevious = () => setStep((prev) => Math.max(prev - 1, 0));
 
-    useEffect(() => {
-        if (state.status === "success") {
-            toast.success(state.message);
-            redirect("/home");
-        } else if (state.status === "error") {
-            toast.error(state.message);
+    const handleRatingChange = (name: string, value: string) => {
+        setSelectedRating((prevRatings) => ({
+            ...prevRatings,
+            [name]: value,
+        }));
+    };
+
+    const handleInputsChange = (name: string, value: string) => {
+        setRatings((prevRatings) => ({
+            ...prevRatings,
+            [name]: value,
+        }));
+    };
+
+    const handleSubmit = async (e: FormEvent) => {
+        e.preventDefault();
+
+        const formData = {
+            ...ratings,
+            comments,
+            userId,
+            flightId,
+        };
+
+        const res = await fetch("/api/reviews/create", {
+            method: "POST",
+            body: JSON.stringify(formData),
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+
+        const result = await res.json();
+
+        if (result.status === "success") {
+            toast.success(result.message); 
+            router.push('/home');
+        } else {
+            toast.error(result.message);
         }
-    }, [state.status, state.message, state.errors])
-
-
-    useEffect(() => {
-        console.log(userId)
-        console.log(flightId)
-    })
-
+        
+    };
 
     return (
         <div className="flex flex-col relative">
             <form
                 className="flex-grow"
-                action={formAction}
+                method="post"
+                onSubmit={(e: FormEvent) => handleSubmit(e)}
             >
                 <div className="flex flex-col gap-y-2">
                     <input
                         name="userId"
                         type="hidden"
                         defaultValue={userId}
-                        value={userId}
                     />
                 </div>
                 <div className="flex flex-col gap-y-2">
@@ -70,7 +108,6 @@ export default function CreateReviewForm({ userId, flightId }: IReviewFormProps)
                         name="flightId"
                         type="hidden"
                         defaultValue={flightId}
-                        value={flightId}
                     />
                 </div>
 
@@ -81,6 +118,7 @@ export default function CreateReviewForm({ userId, flightId }: IReviewFormProps)
                                 <Label className="text-lg">Counter Service</Label>
                                 <RadioGroup
                                     name="counterServiceRating"
+                                    onChange={(e) => handleInputsChange("counterServiceRating", (e.target as HTMLInputElement).value)}
                                 >
                                     <div className="flex items-center gap-2">
                                         {rateInputArray.map(item => (
@@ -100,6 +138,7 @@ export default function CreateReviewForm({ userId, flightId }: IReviewFormProps)
                                 <Label className="text-lg">Waiting Time</Label>
                                 <RadioGroup
                                     name="waitingTimeRating"
+                                    onChange={(e) => handleInputsChange("waitingTimeRating", (e.target as HTMLInputElement).value)}
                                 >
                                     <div className="flex items-center gap-2">
                                         {rateInputArray.map(item => (
@@ -119,6 +158,7 @@ export default function CreateReviewForm({ userId, flightId }: IReviewFormProps)
                                 <Label className="text-lg">Boarding Organization</Label>
                                 <RadioGroup
                                     name="boardingOrganizationRating"
+                                    onChange={(e) => handleInputsChange("boardingOrganizationRating", (e.target as HTMLInputElement).value)}
                                 >
                                     <div className="flex items-center gap-2">
                                         {rateInputArray.map(item => (
@@ -138,6 +178,7 @@ export default function CreateReviewForm({ userId, flightId }: IReviewFormProps)
                                 <Label className="text-lg">Time Departure</Label>
                                 <RadioGroup
                                     name="onTimeDepartureRating"
+                                    onChange={(e) => handleInputsChange("onTimeDepartureRating", (e.target as HTMLInputElement).value)}
                                 >
                                     <div className="flex items-center gap-2">
                                         {rateInputArray.map(item => (
@@ -156,7 +197,8 @@ export default function CreateReviewForm({ userId, flightId }: IReviewFormProps)
                             <div className="flex gap-4 items-center justify-between py-4 px-2">
                                 <Label className="text-lg">cleanliness</Label>
                                 <RadioGroup
-                                    name="cleanliness"
+                                    name="cleanlinessRating"
+                                    onChange={(e) => handleInputsChange("cleanlinessRating", (e.target as HTMLInputElement).value)}
                                 >
                                     <div className="flex items-center gap-2">
                                         {rateInputArray.map(item => (
@@ -164,8 +206,8 @@ export default function CreateReviewForm({ userId, flightId }: IReviewFormProps)
                                                 id={String(item)}
                                                 value={String(item)}
                                                 key={item}
-                                                name="cleanliness"
-                                                onChange={() => handleRatingChange("cleanliness", String(item))}
+                                                name="cleanlinessRating"
+                                                onChange={() => handleRatingChange("cleanlinessRating", String(item))}
                                                 selectedValue={selectedRating}
                                             />
                                         ))}
@@ -176,6 +218,7 @@ export default function CreateReviewForm({ userId, flightId }: IReviewFormProps)
                                 <Label className="text-lg">Crew Service</Label>
                                 <RadioGroup
                                     name="crewServiceRating"
+                                    onChange={(e) => handleInputsChange("crewServiceRating", (e.target as HTMLInputElement).value)}
                                 >
                                     <div className="flex items-center gap-2">
                                         {rateInputArray.map(item => (
@@ -195,6 +238,7 @@ export default function CreateReviewForm({ userId, flightId }: IReviewFormProps)
                                 <Label className="text-lg">Food Quality</Label>
                                 <RadioGroup
                                     name="foodQualityRating"
+                                    onChange={(e) => handleInputsChange("foodQualityRating", (e.target as HTMLInputElement).value)}
                                 >
                                     <div className="flex items-center gap-2">
                                         {rateInputArray.map(item => (
@@ -219,6 +263,7 @@ export default function CreateReviewForm({ userId, flightId }: IReviewFormProps)
                                 <Label className="text-lg">Entertainment</Label>
                                 <RadioGroup
                                     name="entertainmentRating"
+                                    onChange={(e) => handleInputsChange("entertainmentRating", (e.target as HTMLInputElement).value)}
                                 >
                                     <div className="flex items-center gap-2">
                                         {rateInputArray.map(item => (
@@ -238,6 +283,7 @@ export default function CreateReviewForm({ userId, flightId }: IReviewFormProps)
                                 <Label className="text-lg">Captain Performance</Label>
                                 <RadioGroup
                                     name="captainPerformanceRating"
+                                    onChange={(e) => handleInputsChange("captainPerformanceRating", (e.target as HTMLInputElement).value)}
                                 >
                                     <div className="flex items-center gap-2">
                                         {rateInputArray.map(item => (
@@ -257,6 +303,7 @@ export default function CreateReviewForm({ userId, flightId }: IReviewFormProps)
                                 <Label className="text-lg">Take Off Landing</Label>
                                 <RadioGroup
                                     name="takeoffLandingRating"
+                                    onChange={(e) => handleInputsChange("takeoffLandingRating", (e.target as HTMLInputElement).value)}
                                 >
                                     <div className="flex items-center gap-2">
                                         {rateInputArray.map(item => (
@@ -276,6 +323,7 @@ export default function CreateReviewForm({ userId, flightId }: IReviewFormProps)
                                 <Label className="text-lg">Comfort</Label>
                                 <RadioGroup
                                     name="comfortRating"
+                                    onChange={(e) => handleInputsChange("comfortRating", (e.target as HTMLInputElement).value)}
                                 >
                                     <div className="flex items-center gap-2">
                                         {rateInputArray.map(item => (
@@ -295,6 +343,7 @@ export default function CreateReviewForm({ userId, flightId }: IReviewFormProps)
                                 <Label className="text-lg">Time Arrival</Label>
                                 <RadioGroup
                                     name="onTimeArrivalRating"
+                                    onChange={(e) => handleInputsChange("onTimeArrivalRating", (e.target as HTMLInputElement).value)}
                                 >
                                     <div className="flex items-center gap-2">
                                         {rateInputArray.map(item => (
@@ -315,7 +364,8 @@ export default function CreateReviewForm({ userId, flightId }: IReviewFormProps)
                                 <Textarea
                                     name="comments"
                                     placeholder="Leave any comments you wnat..."
-                                    className=""
+                                    value={comments}
+                                    onChange={(e) => setComments(e.target.value)}
                                 />
                             </div>
                         </>

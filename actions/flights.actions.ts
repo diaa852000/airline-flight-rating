@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use server";
 
@@ -7,11 +8,11 @@ import { FlightSchema } from "@/lib/validations";
 import { State } from "@/types";
 import { redirect } from "next/navigation";
 
-export async function CreateFlightAction(prevState: any ,formData: FormData) {
-    if(!await isAuthenticated()) {
+export async function CreateFlightAction(prevState: any, formData: FormData) {
+    if (!await isAuthenticated()) {
         redirect('/sign-in');
     }
-    
+
     let state: State;
 
     const validateFields = FlightSchema.safeParse({
@@ -26,7 +27,7 @@ export async function CreateFlightAction(prevState: any ,formData: FormData) {
         price: Number(formData.get("price")),
     })
 
-    if(!validateFields.success) {
+    if (!validateFields.success) {
         state = {
             status: "error",
             errors: validateFields.error.flatten().fieldErrors,

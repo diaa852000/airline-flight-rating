@@ -67,5 +67,5 @@ export const ReviewSchema = z.object({
         .max(5, { message: "Rating must be at most 5" }),
 
     comments: z.string()
-        .optional()
+        .optional(),
 });

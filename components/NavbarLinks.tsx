@@ -1,13 +1,13 @@
 "use client";
 
-import { adminNavlinks, navlinks } from "@/constants";
+import { adminNavlinks, navlinks, unAuthNavlinks } from "@/constants";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 
 
-export default function NavbarLinks({isAdmin}: {isAdmin: boolean}) {
+export default function NavbarLinks({ isAdmin, isAuthenticated }: { isAdmin: boolean, isAuthenticated: boolean }) {
     const location = usePathname();
     return (
         <div className="hidden md:flex justify-center items-center col-span-7 gap-x-2">
@@ -24,7 +24,7 @@ export default function NavbarLinks({isAdmin}: {isAdmin: boolean}) {
                             {item.name}
                         </Link>
                     ))
-                ) : (
+                ) : isAuthenticated ? (
                     navlinks.map((item) => (
                         <Link
                             href={item.href}
@@ -35,6 +35,10 @@ export default function NavbarLinks({isAdmin}: {isAdmin: boolean}) {
                             )}>
                             {item.name}
                         </Link>
+                    ))
+                ) : (
+                    unAuthNavlinks.map(() => (
+                        <></>
                     ))
                 )}
             </>

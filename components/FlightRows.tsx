@@ -8,9 +8,9 @@ import { redirect } from "next/navigation";
 export default async function FlightRows({ data }: { data: any }) {
     const cleanDescription = data?.description.replace(/^"|"$/g, '') as string;
 
-    const { user, flightData} = await getReviewModelData(data.id);
+    const { user, flightData } = await getReviewModelData(data.id);
 
-    if(!user) {
+    if (!user) {
         redirect('/sign-in')
     }
 
@@ -22,7 +22,7 @@ export default async function FlightRows({ data }: { data: any }) {
                     <h1 className="text-base font-medium text-muted-foreground mt-1">{data.smallDescription}</h1>
                 </div>
                 <div>
-                    <ReviewModel 
+                    <ReviewModel
                         flightId={flightData.id}
                         flightNumber={flightData.flightNumber}
                         userId={user.id}
@@ -58,6 +58,13 @@ export default async function FlightRows({ data }: { data: any }) {
                         <h2 className="text-lg font-semibold dark:text-gray-200">Land</h2>
                         <h2 className="text-muted-foreground font-bold">{DateFormatter(moment(data.endTime).toISOString().slice(0, 10))}</h2>
                     </div>
+                    {data.averageRating
+                        ? <div className="flex justify-between items-center py-6 px-2">
+                            <h2 className="text-lg font-semibold dark:text-gray-200">Average Rate</h2>
+                            <h2 className="text-muted-foreground font-bold">{data.averageRating.toFixed(2)}</h2>
+                        </div>
+                        : <p className="text-sm text-muted-foreground/90 mt-1 font-medium">NA / 5</p>
+                    }
                 </div>
                 <div className="col-span-1">
                     <h2 className="capitalize text-lg font-semibold mb-4">description</h2>

@@ -17,6 +17,7 @@ export interface IFlightCardProps {
     fromCountry: string;
     flightRate: number;
     price: number;
+    averageRating: number;
 }
 
 export interface IReviewFormProps {
@@ -38,6 +39,13 @@ export interface IRateinputProps {
     selectedValue: any;
     onChange: (val: string) => void;
 }
+
+export interface IPagination {
+    page: number;
+    hasPrev: boolean;
+    hasNext: boolean;
+}
+
 
 // Types
 export type Flight = {

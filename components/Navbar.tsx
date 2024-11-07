@@ -3,10 +3,11 @@ import Logo from "./Logo";
 import { Button } from "./ui/button";
 import NavbarLinks from "./NavbarLinks";
 import ThemeToggleButton from "./ThemeToggleButton";
-import { checkAdmin } from "@/helpers";
+import { checkAdmin, isAuthenticated } from "@/helpers";
 
 export default async function Navbar() {
     const isAdmin = await checkAdmin();
+    const isAuth = await isAuthenticated();
 
     return (
         <nav className="main-container w-full flex md:grid md:grid-cols-12 items-center pt-7 pb-4">
@@ -14,7 +15,7 @@ export default async function Navbar() {
                 <Logo />
             </div>
 
-            <NavbarLinks isAdmin={isAdmin as boolean}/>
+            <NavbarLinks isAdmin={isAdmin as boolean} isAuthenticated={isAuth as boolean}/>
 
             <div className="flex items-center gap-x-3 ms-auto md:col-span-3">
                 <SignedOut>
