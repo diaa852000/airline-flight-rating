@@ -30,9 +30,9 @@ export async function GET() {
                 }
             });
 
-            return NextResponse.redirect('http://localhost:3333/home');
+            return NextResponse.redirect('/home');
         } else {
-            return NextResponse.redirect('http://localhost:3333/home');
+            return NextResponse.redirect('/home');
         }
 
     } catch (error: any) {
