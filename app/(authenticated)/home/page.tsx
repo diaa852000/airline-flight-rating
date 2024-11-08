@@ -25,11 +25,13 @@ export default async function HomePage() {
             <div className="mt-24">
                 <h3 className="text-3xl font-bold mb-6">Latest Flights Reviewed</h3>
                 <div className="flex flex-col gap-4">
-                    {newestReviwes.map((item => (
-                        <div key={item.id}>
-                            <ReviewCard data={item.flight}/>
-                        </div>
-                    )))}
+                    {newestReviwes
+                        ? newestReviwes.map(item => (
+                            <div key={item.id}>
+                                <ReviewCard data={item.flight} />
+                            </div>))
+                        : <h2 className="text-2xl mt-2 text-muted-foreground">No Reviewed Flights Add yet!</h2>
+                    }
                 </div>
             </div>
         </section>

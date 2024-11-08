@@ -5,7 +5,7 @@ import { FLIGHT_PER_PAGE } from "@/constants";
 
 
 async function getFlightsPagination(page: number = 1) {
-    const response = await fetch(`/api/flights?page=${page}`, {
+    const response = await fetch(`http://localhost:3333/api/flights?page=${page}`, {
         cache: 'no-cache'
     });
 

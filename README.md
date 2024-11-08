@@ -1,36 +1,118 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Flight Review Website
+
+This project is a web application designed for users to review and rate flights, allowing them to share their experiences and help others make informed travel choices.
+
+## Pages
+
+### 1. Landing Page
+The landing page introduces users to the website and provides an overview of the services. Here are the key elements of this page:
+   - **Project Introduction**: Briefly describes the purpose of the website and how it benefits users.
+   - **Features Overview**: Highlights key features, such as reviewing flights, tracking past reviews, and discovering flights reviewed by other users.
+   - **Call to Action**: Prominent buttons for "Sign Up" or "Login" to encourage users to create an account and start reviewing.
+
+<img src="public/screenshots/landingPage.jpg" alt="" width={200}/>
+
+### 2. Authentication Page
+This page is managed by **Clerk**, which provides a secure and user-friendly authentication experience:
+   - **Sign Up**: New users can sign up with their email or via supported third-party providers.
+   - **Login**: Existing users can log in to access their personalized flight review dashboard.
+
+<img src="public/screenshots/authenticationPage.jpg" alt="" width={200}/>
+
+### 3. Home Page
+The home page is the main dashboard for logged-in users, providing a central hub for accessing and managing reviews. Features include:
+   - **User’s Reviewed Flights**: A section displaying a list of flights the user has previously reviewed, including quick links to view or edit each review.
+   - **Browse All Flights**: Users can explore a catalog of flights, with each flight offering options to read existing reviews or add a new review.
+   - **Add a New Review**: A button that takes users to the review form, allowing them to create a new review for any flight in the catalog.
+
+<img src="public/screenshots/homePAge.jpg" alt="" width={200}/>
+
+### 4. Flights Page
+This page preview flight cards which include:
+   - **Flight Card**: Contains the flight information 
+   - **Paginagtion**: paginate the flights whic each page conatins 5 flight cards 
+   
+<img src="public/screenshots/flightsPage.jpg" alt="" width={200}/>
+
+### 5. Flight Page
+This page allows users to create and submit a new review. Key elements include:
+   - **Flight Rows Derails**: display all flight information 
+   - **Add Review Button**: button popup a multi-step form to create a review 
+
+<img src="public/screenshots/SingleFlight.jpg" alt="" width={200}/>
+
+### 6. Review Popup Form
+This page preview flight cards which include:
+   - **Reviews Form**: Multi-step Form for enable user create his review
+   - **Toaster**: send a toaster message to user after any action
+
+   <img src="public/screenshots/reviewPopupForm.jpg" alt="" width={200}/>
+
+
+### 7. Create Flight Page
+   - **Create Flight Form**: Form to fill up flight information to create it.
+   - **Rich Text Editor**: To ensure that discription display well.
+   - **Toaster**: send a toaster message to user after any action
+
+   <img src="public/screenshots/createFlight.jpg" alt="" width={200}/>
+
+## Technologies Used
+
+- **Next.js**: Framework for building the frontend and managing routing.
+- **Prisma**: ORM for connecting to and interacting with the MongoDB database.
+- **MongoDB**: Database for storing user, flight, and review data.
+- **Clerk**: Authentication service that provides secure sign-up and login functionalities.
+- **React Quill**: Rich text editor enabling users to format reviews with ease.
 
 ## Getting Started
 
-First, run the development server:
+To run this project locally, follow these steps:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/your-username/flight-review-website.git
+   cd flight-review-website
+   ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. **Install dependencies**:
+   ```bash
+   npm install
+   ```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. **Environment Variables**: Set up your environment variables by creating a `.env` file in the root directory. Here’s a sample of required variables:
+   ```plaintext
+   DATABASE_URL=<Your MongoDB connection string>
+   CLERK_API_KEY=<Your Clerk backend API key>
+   NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=<Your Public Clerk Publisheable key>
+   CLERK_SECRET_KEY=<Your Clerk Secret key>
+   NEXT_PUBLIC_CLERK_SIGN_IN_URL=
+   NEXT_PUBLIC_CLERK_SIGN_UP_URL=
+   NEXT_PUBLIC_CLERK_SIGN_IN_FORCE_REDIRECT_URL=
+   NEXT_PUBLIC_CLERK_SIGN_IN_FALLBACK_REDIRECT_URL=
+   NEXT_PUBLIC_CLERK_SIGN_UP_FALLBACK_REDIRECT_URL=
+   NEXT_PUBLIC_CLERK_SIGN_UP_FORCE_REDIRECT_URL=
+   ```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+4. **Run the Application**:
+   ```bash
+   npm run dev
+   ```
 
-## Learn More
+5. **Access the App**:
+   Open your browser and go to `http://localhost:3000`.
 
-To learn more about Next.js, take a look at the following resources:
+## How to Use
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **Landing Page**: Explore the overview of the site and learn about its key features.
+- **Authentication**: Log in or create an account through Clerk’s authentication system.
+- **Home Page**: Access your reviewed flights, browse all available flights, and start reviewing.
+- **Review Creation**: Submit new flight reviews with rich text formatting.
+- **Review Page**: View, edit, or delete all of your past reviews.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Future Improvements
 
-## Deploy on Vercel
+- **Flight Search**: Add a search function to quickly find specific flights.
+- **Enhanced Rating System**: Include a rating scale (e.g., stars or numbers) for more nuanced reviews.
+- **Profile Page**: A dedicated profile page for users to manage personal information and review statistics.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
