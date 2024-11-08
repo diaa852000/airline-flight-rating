@@ -48,8 +48,8 @@ This page preview flight cards which include:
 
    <img src="public/screenshots/reviewPopupForm.jpg" alt="" width={200}/>
 
-
 ### 7. Create Flight Page
+   - **For Admin**: Enable Admin to Create Flight
    - **Create Flight Form**: Form to fill up flight information to create it.
    - **Rich Text Editor**: To ensure that discription display well.
    - **Toaster**: send a toaster message to user after any action
@@ -57,7 +57,6 @@ This page preview flight cards which include:
    <img src="public/screenshots/createFlight.jpg" alt="" width={200}/>
 
 ## Technologies Used
-
 - **Next.js**: Framework for building the frontend and managing routing.
 - **Prisma**: ORM for connecting to and interacting with the MongoDB database.
 - **MongoDB**: Database for storing user, flight, and review data.
