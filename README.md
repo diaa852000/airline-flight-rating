@@ -80,16 +80,15 @@ To run this project locally, follow these steps:
 
 3. **Environment Variables**: Set up your environment variables by creating a `.env` file in the root directory. Here’s a sample of required variables:
    ```plaintext
-   DATABASE_URL=<Your MongoDB connection string>
-   CLERK_API_KEY=<Your Clerk backend API key>
-   NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=<Your Public Clerk Publisheable key>
-   CLERK_SECRET_KEY=<Your Clerk Secret key>
-   NEXT_PUBLIC_CLERK_SIGN_IN_URL=
-   NEXT_PUBLIC_CLERK_SIGN_UP_URL=
-   NEXT_PUBLIC_CLERK_SIGN_IN_FORCE_REDIRECT_URL=
-   NEXT_PUBLIC_CLERK_SIGN_IN_FALLBACK_REDIRECT_URL=
-   NEXT_PUBLIC_CLERK_SIGN_UP_FALLBACK_REDIRECT_URL=
-   NEXT_PUBLIC_CLERK_SIGN_UP_FORCE_REDIRECT_URL=
+   DATABASE_URL="mongodb+srv://diaaeltaiby:75eMPovAtnzV4AMk@cluster0.mjijb.mongodb.net/FlyRate?retryWrites=true&w=majority&appName=Cluster0"
+   NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_Z2xvcmlvdXMtYW5jaG92eS01Ny5jbGVyay5hY2NvdW50cy5kZXYk
+   CLERK_SECRET_KEY=sk_test_paMVtJh6EbZAaZVXYoLS7xYjSJrU2mvKRbYQHm5reD
+   NEXT_PUBLIC_CLERK_SIGN_IN_URL=/sign-in
+   NEXT_PUBLIC_CLERK_SIGN_UP_URL=/sign-up
+   NEXT_PUBLIC_CLERK_SIGN_IN_FORCE_REDIRECT_URL=/home
+   NEXT_PUBLIC_CLERK_SIGN_IN_FALLBACK_REDIRECT_URL=/
+   NEXT_PUBLIC_CLERK_SIGN_UP_FALLBACK_REDIRECT_URL=/
+   NEXT_PUBLIC_CLERK_SIGN_UP_FORCE_REDIRECT_URL=/api/auth/user/create
    ```
 
 4. **Run the Application**:
