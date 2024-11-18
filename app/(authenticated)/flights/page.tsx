@@ -5,7 +5,7 @@ import { FLIGHT_PER_PAGE } from "@/constants";
 import {unstable_noStore as noStore} from 'next/cache'
 
 async function getFlightsPagination(page: number = 1) {
-    const response = await fetch(`http://localhost:3333/api/flights?page=${page}`, {
+    const response = await fetch(`https://airline-flight-rating-gtlk.vercel.app/api/flights?page=${page}`, {
         cache: 'no-cache'
     });
 
