@@ -8,7 +8,11 @@ import { FlightSchema } from "@/lib/validations";
 import { State } from "@/types";
 import { redirect } from "next/navigation";
 
+import {unstable_noStore as noStore} from 'next/cache'
+
 export async function CreateFlightAction(prevState: any, formData: FormData) {
+    noStore();
+    
     if (!await isAuthenticated()) {
         redirect('/sign-in');
     }

@@ -1,10 +1,13 @@
 import { isAuthenticated } from "@/helpers";
 import prisma from "@/lib/db";
 import { ReviewSchema } from "@/lib/validations";
+import {unstable_noStore as noStore} from 'next/cache'
 
 export async function POST(req: Request) {
+    noStore();
+
     if (!await isAuthenticated()) {
-        return Response.redirect('/sing-in');
+        return Response.redirect('/sign-in');
     }
 
     const formData = await req.json();

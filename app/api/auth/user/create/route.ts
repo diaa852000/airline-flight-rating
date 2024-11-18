@@ -2,8 +2,11 @@
 import prisma from "@/lib/db";
 import { currentUser } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
+import {unstable_noStore as noStore} from 'next/cache'
 
 export async function GET() {
+    noStore();
+    
     const user = await currentUser();
 
     if (!user) {

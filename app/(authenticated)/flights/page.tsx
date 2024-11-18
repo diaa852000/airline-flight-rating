@@ -2,7 +2,7 @@
 import FlightCard from "@/components/FlightCard";
 import Pagination from "@/components/Pagination";
 import { FLIGHT_PER_PAGE } from "@/constants";
-
+import {unstable_noStore as noStore} from 'next/cache'
 
 async function getFlightsPagination(page: number = 1) {
     const response = await fetch(`http://localhost:3333/api/flights?page=${page}`, {
@@ -20,6 +20,8 @@ async function getFlightsPagination(page: number = 1) {
 
 
 export default async function FlightsPage({ searchParams }: { searchParams: { [key: string]: string | string[] | undefined } }) {
+    noStore();
+
     const page = Number(searchParams['page']) || 1;
 
     const data = await getFlightsPagination(page);

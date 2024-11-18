@@ -1,8 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { FLIGHT_PER_PAGE } from "@/constants";
 import prisma from "@/lib/db";
+import {unstable_noStore as noStore} from 'next/cache'
+
 
 export async function GET(req: Request) {
+    noStore();
     const { searchParams } = new URL(req.url);
     const page = searchParams.get("page");
 

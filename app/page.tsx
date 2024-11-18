@@ -5,9 +5,10 @@ import { currentUser } from "@clerk/nextjs/server";
 import { ArrowRightLeft, NotepadText, Plane } from "lucide-react";
 import Image from "next/image";
 import { redirect } from "next/navigation";
-
+import {unstable_noStore as noStore} from 'next/cache'
 
 export default async function LandingPage() {
+  noStore();
   const user = await currentUser();
   if (user) redirect('/home');
 

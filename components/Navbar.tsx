@@ -4,8 +4,11 @@ import { Button } from "./ui/button";
 import NavbarLinks from "./NavbarLinks";
 import ThemeToggleButton from "./ThemeToggleButton";
 import { checkAdmin, isAuthenticated } from "@/helpers";
+import {unstable_noStore as noStore} from 'next/cache'
 
 export default async function Navbar() {
+    noStore();
+
     const isAdmin = await checkAdmin();
     const isAuth = await isAuthenticated();
 
