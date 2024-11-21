@@ -15,7 +15,7 @@ export default async function reviewsPage() {
     const userReviewedFlights = await getUserReviewsFlight(user.id);
 
     return (
-        <section className="main-container my-10">
+        <section className="main-container my-8">
             <h1 className="text-3xl font-bold my-5">
                 Reviews
             </h1>

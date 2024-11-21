@@ -30,8 +30,8 @@ export default async function FlightsPage({ searchParams }: { searchParams: { [k
     const hasNext = FLIGHT_PER_PAGE * (Number(page) - 1) + FLIGHT_PER_PAGE < parseInt(data.count);
 
     return (
-        <section className="main-container">
-            <h1 className="my-4 text-2xl font-bold tracking-wider">Here find all flights</h1>
+        <section className="main-container my-8">
+            <h1 className="my-5 text-2xl font-bold tracking-wider">Here find all flights</h1>
             <div className="flex flex-col justify-between h-full">
                 <div className="flex flex-col gap-2 ">
                     {data.flights?.map((flight: any) => (

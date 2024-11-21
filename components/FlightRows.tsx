@@ -58,13 +58,14 @@ export default async function FlightRows({ data }: { data: any }) {
                         <h2 className="text-lg font-semibold dark:text-gray-200">Land</h2>
                         <h2 className="text-muted-foreground font-bold">{DateFormatter(moment(data.endTime).toISOString().slice(0, 10))}</h2>
                     </div>
-                    {data.averageRating
-                        ? <div className="flex justify-between items-center py-6 px-2">
-                            <h2 className="text-lg font-semibold dark:text-gray-200">Average Rate</h2>
-                            <h2 className="text-muted-foreground font-bold">{data.averageRating.toFixed(2)}</h2>
-                        </div>
-                        : <p className="text-sm text-muted-foreground/90 mt-1 font-medium">NA / 5</p>
-                    }
+                    <div className="flex justify-between items-center py-6 px-2">
+                        <h2 className="text-lg font-semibold dark:text-gray-200">Average Rate</h2>
+                        {data.averageRating
+                            ? <h2 className="text-muted-foreground font-bold">{data.averageRating.toFixed(2)}</h2>
+                            : <p className="text-sm text-muted-foreground/90 mt-1 font-medium">NA / 5</p>
+                        }
+                    </div>
+
                 </div>
                 <div className="col-span-1">
                     <h2 className="capitalize text-lg font-semibold mb-4">description</h2>

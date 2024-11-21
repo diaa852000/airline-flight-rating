@@ -31,7 +31,7 @@ export async function GetFlightById(id: string) {
 };
 
 export async function exisitingReview(userId: string, flightId: string) {
-    return await prisma.flightReview.findUnique({
+    const isReviewed  = await prisma.flightReview.findUnique({
         where: {
             userId_flightId: {
                 userId: userId,
@@ -39,6 +39,8 @@ export async function exisitingReview(userId: string, flightId: string) {
             },
         },
     });
+
+    return isReviewed ? true : false;
 }
 
 export async function getUserReviews(userId: string) {

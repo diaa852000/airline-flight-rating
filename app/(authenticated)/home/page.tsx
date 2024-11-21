@@ -21,7 +21,7 @@ export default async function HomePage() {
                     Discover your next flight and share valuable feedback to enhance travel experiences for everyone!
                 </h2>
                 <p className="text-xl text-center text-muted-foreground/80 mt-4 font-medium">
-                    Search your Trip, Just wirte your trip number down blowe!
+                    Search your Trip, Just wirte your trip number below!
                 </p>
                 <SearchTripForm />
             </div>

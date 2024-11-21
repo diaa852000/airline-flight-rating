@@ -90,7 +90,7 @@ export default function CreateFlightForm() {
                         <Label>From</Label>
                         <Select name="fromCountry">
                             <SelectTrigger className="w-full min-w-[180px]">
-                                <SelectValue placeholder="Select your Countery" />
+                                <SelectValue placeholder="Select your Country" />
                             </SelectTrigger>
                             <SelectContent>
                                 <SelectItem value="egypt">Egypt</SelectItem>
@@ -106,7 +106,7 @@ export default function CreateFlightForm() {
                         <Label>Destination</Label>
                         <Select name="toCountry">
                             <SelectTrigger className="w-full min-w-[180px]">
-                                <SelectValue placeholder="Selecte Destination" />
+                                <SelectValue placeholder="Select Destination" />
                             </SelectTrigger>
                             <SelectContent>
                                 <SelectItem value="egypt">Egypt</SelectItem>
@@ -163,7 +163,7 @@ export default function CreateFlightForm() {
                     <Textarea
                         name="smallDescription"
                         minLength={10}
-                        placeholder="Tell a preife about your journey..."
+                        placeholder="Tell a brief about your journey..."
                     />
                     {state?.errors?.["smallDescription"]?.[0] && (
                         <p className="text-destructive">{state?.errors?.["smallDescription"]?.[0]}</p>

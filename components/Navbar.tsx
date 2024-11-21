@@ -6,7 +6,7 @@ import ThemeToggleButton from "./ThemeToggleButton";
 import { checkAdmin, isAuthenticated } from "@/helpers";
 import {unstable_noStore as noStore} from 'next/cache'
 
-export default async function  Navbar() {
+export default async function Navbar() {
     noStore();
 
     const isAdmin = await checkAdmin();
@@ -28,7 +28,7 @@ export default async function  Navbar() {
                         className="font-medium py-2 px-4 rounded-md"
                     >
                         <SignInButton>
-                            Sing in
+                            Sign in
                         </SignInButton>
                     </Button>
                     <Button
