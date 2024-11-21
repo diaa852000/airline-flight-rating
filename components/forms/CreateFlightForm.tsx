@@ -25,7 +25,7 @@ export default function CreateFlightForm() {
     const [description, setDescription] = useState("");
 
     useEffect(() => {
-        if (state.status === "success") {
+        if (state.status === "success") {   
             toast.success(state.message);
             redirect("/home");
         } else if (state.status === "error") {
@@ -188,10 +188,8 @@ export default function CreateFlightForm() {
                     )}
                 </div>
             </CardContent>
-            <CardFooter className="">
-                <Button
-                    type="submit"
-                >
+            <CardFooter>
+                <Button type="submit">
                     Create
                 </Button>
             </CardFooter>
