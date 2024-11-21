@@ -35,7 +35,7 @@ export default function ReviewCard({ data }: { data: any }) {
                 <p className="text-sm text-muted-foreground/90 mt-1 font-medium">per 1 person</p>
                 {data.averageRating
                     ? <p className="text-sm text-muted-foreground/90 mt-1 font-bold">{data.averageRating.toFixed(2)}/5</p>
-                    : <p className="text-sm text-muted-foreground/90 mt-1 font-bold">NA/5</p>
+                    : <p className="text-sm text-muted-foreground/90 mt-1 font-bold">NA/5</p>   
                 }
             </div>
         </Link>

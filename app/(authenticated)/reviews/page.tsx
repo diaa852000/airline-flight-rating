@@ -15,7 +15,10 @@ export default async function reviewsPage() {
     const userReviewedFlights = await getUserReviewsFlight(user.id);
 
     return (
-        <section className="main-container">
+        <section className="main-container my-10">
+            <h1 className="text-3xl font-bold my-5">
+                Reviews
+            </h1>
             <div className="flex flex-col gap-2">
                 {userReviewedFlights.map(userReviewedFlight => (
                     <ReviewCard

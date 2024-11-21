@@ -43,26 +43,26 @@ model Flight {
 
 model FlightReview {
   id                         String   @id @default(auto()) @map("_id") @db.ObjectId
-  flightId                   String   @db.ObjectId // Reference to Flight by ID
-  userId                     String // Reference to User by ID
-  counterServiceRating       Int      // Rating for counter service
-  waitingTimeRating          Int      // Rating for waiting time
-  boardingOrganizationRating Int      // Rating for boarding organization
-  onTimeDepartureRating      Int      // Rating for on-time departure
-  cleanlinessRating          Int      // Rating for cleanliness
-  crewServiceRating          Int      // Rating for crew service
-  foodQualityRating          Int      // Rating for food quality
-  entertainmentRating        Int      // Rating for entertainment
-  captainPerformanceRating   Int      // Rating for captain performance
-  takeoffLandingRating       Int      // Rating for takeoff and landing
-  comfortRating              Int      // Rating for overall comfort
-  onTimeArrivalRating        Int      // Rating for on-time arrival
-  comments                   String? // Additional comments
-  totalRating                Float? // Calculated average rating
-  reviewDate                 DateTime @default(now()) // Review timestamp
+  flightId                   String   @db.ObjectId 
+  userId                     String 
+  counterServiceRating       Int      
+  waitingTimeRating          Int      
+  boardingOrganizationRating Int      
+  onTimeDepartureRating      Int      
+  cleanlinessRating          Int      
+  crewServiceRating          Int      
+  foodQualityRating          Int      
+  entertainmentRating        Int      
+  captainPerformanceRating   Int      
+  takeoffLandingRating       Int      
+  comfortRating              Int      
+  onTimeArrivalRating        Int      
+  comments                   String? 
+  totalRating                Float? 
+  reviewDate                 DateTime @default(now()) 
 
-  flight Flight? @relation("FlightReviews", fields: [flightId], references: [id]) // Optional relation to Flight
-  user   User?   @relation("UserReviews", fields: [userId], references: [id]) // Optional relation to User
+  flight Flight? @relation("FlightReviews", fields: [flightId], references: [id]) 
+  user   User?   @relation("UserReviews", fields: [userId], references: [id]) 
 
   @@map("flightReview")
   @@unique([userId, flightId])

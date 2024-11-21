@@ -39,7 +39,7 @@ export default function CreateFlightForm() {
     const onStartTimeChange = (value: moment.Moment | string) => {
         setStartTime(moment.isMoment(value) ? value : moment(value));
     }
-
+    
     const onEndTimeChange = (value: moment.Moment | string) => {
         setEndTime(moment.isMoment(value) ? value : moment(value));
     }
